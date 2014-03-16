@@ -308,15 +308,18 @@ ruby << EOF
 		q = $curbuf.query(get_cur_view)
 		q.sort = Notmuch::SORT_OLDEST_FIRST
 		msgs = q.search_messages
+		msg_index = 0
+		msg_count = q.search_messages.count
 		msgs.each do |msg|
 			m = Mail.read(msg.filename)
 			part = m.find_first_text
 			nm_m = Message.new(msg, m)
 			$messages << nm_m
+			msg_index += 1
 			date_fmt = VIM::evaluate('g:notmuch_datetime_format')
 			date = Time.at(msg.date).strftime(date_fmt)
 			nm_m.start = b.count
-			b << "%s %s (%s)" % [msg['from'], date, msg.tags]
+			b << "%s %s (%s) %s/%s" % [msg['from'], date, msg.tags, msg_index, msg_count]
 			b << "Subject: %s" % [msg['subject']]
 			b << "To: %s" % msg['to']
 			b << "Cc: %s" % msg['cc']
