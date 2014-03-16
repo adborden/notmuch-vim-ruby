@@ -1,9 +1,9 @@
 " notmuch show mode syntax file
 
 syntax cluster nmShowMsgDesc contains=nmShowMsgDescWho,nmShowMsgDescDate,nmShowMsgDescTags,nmShowMsgDescIndex
+syntax match   nmShowMsgDescWho /[^)]\+>/ contained
+syntax match   nmShowMsgDescDate / [^(]\+ / contained
 syntax match   nmShowMsgDescWho /[^)]\+)/ contained
-syntax match   nmShowMsgDescDate / ([^)]\+[0-9]) / contained
-syntax match   nmShowMsgDescTags /([^)]\+)/ contained
 syntax match   nmShowMsgDescIndex / [0-9]\+\/[0-9]\+$/ contained
 
 syntax cluster nmShowMsgHead contains=nmShowMsgHeadKey,nmShowMsgHeadVal
